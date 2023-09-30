@@ -8,7 +8,7 @@ extends Camera2D
 var _noise_i := 0.0
 var _shake_strength := 0.0
 
-@onready var noise: FastNoiseLite = FastNoiseLite.new()
+@onready var noise := FastNoiseLite.new()
 @onready var rand := RandomNumberGenerator.new()
 
 
@@ -17,11 +17,11 @@ func _process(delta: float) -> void:
 	offset = _get_noise_offset(delta, noise_shake_speed, _shake_strength)
 
 
-func apply__shake():
+func apply__shake() -> void:
 	_shake_strength = noise_shake_strength
 
 
-func apply_smoothened_shake(smoothing_multiplier: float):
+func apply_smoothened_shake(smoothing_multiplier: float) -> void:
 	_shake_strength = noise_shake_strength * smoothing_multiplier
 
 

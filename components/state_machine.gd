@@ -6,22 +6,22 @@ signal transitioned(state_name: String)
 @onready var state: State = get_node(initial_state)
 
 
-func _ready():
+func _ready() -> void:
 	await owner.ready
 	for child in get_children():
 		(child as State).state_machine = self
 	state.enter()
 
 
-func _unhandled_input(event):
+func _unhandled_input(event: InputEvent) -> void:
 	state.handle_input(event)
 
 
-func _process(delta):
+func _process(delta: float) -> void:
 	state.update(delta)
 
 
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	state.physics_update(delta)
 
 
