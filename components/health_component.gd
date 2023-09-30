@@ -27,12 +27,16 @@ func heal(amount: float) -> void:
 
 func initialize_health() -> void:
 	current_health = max_health
+	_current_health = max_health
 
 
 func set_max_health(value: float) -> void:
 	max_health = value
+	_current_health = max_health
+	current_health = max_health
 	if current_health > max_health:
 		current_health = max_health
+		_current_health = max_health
 
 
 func set_current_health(value: float) -> void:

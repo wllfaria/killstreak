@@ -5,6 +5,7 @@ extends "res://components/character.gd"
 @export var shooting_run_speed := 50.0
 @export var acceleration := 10.0
 @export var turn_acceleration := 20.0
+@export var hurt_duration_delay: float = 0.15
 @export var jump_acceleration := 5.0
 @export var fall_acceleration := 3.0
 @export var shooting_acceleration := 60.0
@@ -34,6 +35,7 @@ extends "res://components/character.gd"
 @export var primary_attack_damage := 10
 @export var health := 100
 @export var health_component: HealthComponent
+@export var grace_period_time: float = 1.5
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var last_time_on_ground := 0.0
@@ -42,6 +44,7 @@ var can_dash := false
 var can_shoot := true
 var jump_amount := 0
 var target: CharacterBody2D
+var is_in_grace_period: bool = false
 
 @onready var outer_left_raycast: RayCast2D  = $OuterLeft
 @onready var inner_left_raycast: RayCast2D = $InnerLeft
@@ -51,12 +54,15 @@ var target: CharacterBody2D
 @onready var shoot_cooldown: Timer = $Timers/ShootCooldown
 @onready var projectile_spawn_point: Marker2D = $ProjectileSpawn
 @onready var attack_range: AttackRange = $AttackRange
+@onready var grace_period_timer: Timer = $Timers/GracePeriod
 
 
 func _ready():
+	hurt_duration.wait_time = hurt_duration_delay
 	health_component.max_health = health
 	shoot_cooldown.wait_time = shoot_delay
 	attack_range.set_radius(attack_range_radius)
+	grace_period_timer.wait_time = grace_period_time
 
 
 func _input(_event):
@@ -79,3 +85,14 @@ func wall_slide_exhausted() -> bool:
 
 func _on_shoot_cooldown_timeout():
 	can_shoot = true
+
+
+func _on_health_component_health_changed(health_update: HealthComponent.HealthUpdate):
+	if not health_update.is_heal:
+		is_in_grace_period = true
+		grace_period_timer.start()
+
+
+func _on_grace_period_timeout():
+	print("can take damage")
+	is_in_grace_period = false

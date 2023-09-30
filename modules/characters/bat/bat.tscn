@@ -1,13 +1,15 @@
-[gd_scene load_steps=33 format=3 uid="uid://codh52uarg1io"]
+[gd_scene load_steps=36 format=3 uid="uid://codh52uarg1io"]
 
 [ext_resource type="Texture2D" uid="uid://cfaxwucfsneky" path="res://modules/characters/bat/assets/bat.png" id="1_3bn1w"]
 [ext_resource type="Script" path="res://modules/characters/bat/bat.gd" id="1_6ined"]
 [ext_resource type="Script" path="res://components/health_component.gd" id="2_01oui"]
+[ext_resource type="PackedScene" uid="uid://bmitd4dpjwe65" path="res://modules/characters/bat/sonic_beam.tscn" id="2_dwddh"]
 [ext_resource type="Script" path="res://components/hurtbox_component.gd" id="3_tkqqg"]
 [ext_resource type="Script" path="res://components/state_machine.gd" id="5_jfo22"]
 [ext_resource type="Script" path="res://modules/characters/bat/surround_state.gd" id="6_vgued"]
 [ext_resource type="Script" path="res://modules/characters/bat/dive_state.gd" id="7_mr8iu"]
 [ext_resource type="Script" path="res://components/attack_range.gd" id="8_0jl5x"]
+[ext_resource type="Script" path="res://modules/characters/bat/attack_state.gd" id="8_q3boc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8f7k5"]
 atlas = ExtResource("1_3bn1w")
@@ -191,6 +193,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(1.5, 1), Vector2(1.5, 1), Vector2(1.5, 2), Vector2(1.5, 2), Vector2(1.5, 1), Vector2(1.5, 1), Vector2(1.5, 0), Vector2(1.5, 0), Vector2(1.5, 1), Vector2(1.5, 1)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite:flip_h")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_75r1i"]
 length = 0.001
@@ -266,6 +280,18 @@ tracks/5/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sprite:flip_h")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_fmdm4"]
 resource_name = "Die"
@@ -320,10 +346,53 @@ tracks/3/keys = {
 "values": [true, true, false]
 }
 
+[sub_resource type="Animation" id="Animation_ppd2q"]
+resource_name = "RunLeft"
+length = 0.75
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"RunLeft"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q8tni"]
 _data = {
 "Die": SubResource("Animation_fmdm4"),
 "RESET": SubResource("Animation_75r1i"),
+"RunLeft": SubResource("Animation_ppd2q"),
 "RunRight": SubResource("Animation_03mm2")
 }
 
@@ -332,9 +401,14 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_y5g1d"]
 
 [node name="Bat" type="CharacterBody2D" node_paths=PackedStringArray("health_component") groups=["Enemy"]]
+position = Vector2(0, -0.0556812)
 script = ExtResource("1_6ined")
+dive_range_radius = 40.0
+projectile = ExtResource("2_dwddh")
 health_component = NodePath("HealthComponent")
-attack_range_radius = 100.0
+attack_range_radius = 80.0
+projectile_speed = 200.0
+attack_knockback = Vector2(100, 200)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 use_parent_material = true
@@ -370,7 +444,6 @@ one_shot = true
 
 [node name="DiveCooldown" type="Timer" parent="Timers"]
 one_shot = true
-autostart = true
 
 [node name="AttackCooldown" type="Timer" parent="Timers"]
 one_shot = true
@@ -385,6 +458,9 @@ script = ExtResource("6_vgued")
 [node name="Dive" type="Node" parent="StateMachine"]
 script = ExtResource("7_mr8iu")
 
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource("8_q3boc")
+
 [node name="DiveRange" type="Area2D" parent="."]
 script = ExtResource("8_0jl5x")
 
@@ -396,6 +472,9 @@ script = ExtResource("8_0jl5x")
 
 [node name="RangeCollision" type="CollisionShape2D" parent="AttackRange"]
 shape = SubResource("CircleShape2D_y5g1d")
+
+[node name="ProjectileSpawn" type="Marker2D" parent="."]
+position = Vector2(2.22498, -0.554927)
 
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="timeout" from="Timers/HurtDuration" to="." method="_on_hurt_duration_timeout"]

@@ -1,6 +1,5 @@
 extends PlayerState
 
-
 var _last_state: String
 
 

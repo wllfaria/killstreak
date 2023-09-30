@@ -2,9 +2,11 @@ extends EnemyState
 
 var _dive_progress: float = 0.0
 
+func enter(_msg := {}) -> void:
+	_dive_progress = 0.0
+
 
 func physics_update(delta: float) -> void:
-	enemy.can_dive = false
 	if enemy.can_dive and not enemy.is_attacking:
 		var direction = (enemy.player.global_position - enemy.global_position).normalized()
 		var target_position = enemy.player.global_position  + direction * enemy.dive_distance
@@ -12,6 +14,9 @@ func physics_update(delta: float) -> void:
 
 		_dive_progress += delta / enemy.dive_duration
 		if _dive_progress > 1.0:
+			enemy.can_dive = false
+			enemy.dive_cooldown.start()
+			state_machine.transition_to("Surround")
 			_dive_progress = 1.0
 
 		enemy.global_position = curve.sample_baked(_dive_progress)

@@ -10,6 +10,14 @@ extends "res://components/character.gd"
 @export var run_speed := 100.0
 @export var attack_range_radius := 200.0
 @export var attack_cooldown_delay: float = 3.0
+@export var projectile_speed: float = 300.0
+@export var projectile_damage: float = 12.0
+@export var projectiles_container: Node
+@export var projectile_despawn_distance: float = 1000.0
+@export var safe_radius: float = 60.0
+@export var attack_knockback: Vector2
+@export var max_height: float = 300.0
+@export var min_height: float = 100.0
 
 var can_attack: bool = true
 var is_attacking: bool = false
@@ -19,13 +27,7 @@ var is_attacking: bool = false
 @onready var sprite = $Sprite
 @onready var attack_range: AttackRange = $AttackRange
 @onready var attack_cooldown: Timer = $Timers/AttackCooldown
-
-
-func _ready():
-	hurt_duration.wait_time = hurt_duration_delay
-	attack_range.set_radius(attack_range_radius)
-	attack_cooldown.wait_time = attack_cooldown_delay
-
+@onready var projectile_spawn_point: Marker2D = $ProjectileSpawn
 
 func _physics_process(delta):
 	if should_face_player:
@@ -54,3 +56,4 @@ func _face_player(delta: float):
 
 func _on_attack_cooldown_timeout():
 	can_attack = true
+	is_attacking = false

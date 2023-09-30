@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmitd4dpjwe65"]
+
+[ext_resource type="Script" path="res://modules/characters/bat/sonic_beam.gd" id="1_krrm4"]
+[ext_resource type="Texture2D" uid="uid://srnecmgt3vbv" path="res://modules/characters/assets/sonic-beam.png" id="2_smpqh"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1e2nm"]
+radius = 3.48707
+height = 10.2144
+
+[node name="SonicBeam" type="Area2D" groups=["Projectiles"]]
+script = ExtResource("1_krrm4")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_smpqh")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0.0834274, 0)
+rotation = 1.57024
+shape = SubResource("CapsuleShape2D_1e2nm")
