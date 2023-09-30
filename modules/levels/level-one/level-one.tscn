@@ -27,10 +27,6 @@ wall_jump_force = Vector2(20, -200)
 coyote_jump_delay = 0.1
 dash_speed = 240.0
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-limit_left = 0
-limit_bottom = 190
-
 [node name="Ground" type="Node" parent="."]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Ground"]
