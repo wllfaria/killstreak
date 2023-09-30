@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://6kp8uwn2mjh6"]
+[gd_scene load_steps=7 format=3 uid="uid://6kp8uwn2mjh6"]
 
 [ext_resource type="PackedScene" uid="uid://clxyccn3661l7" path="res://modules/characters/player/player.tscn" id="1_7o3j5"]
+[ext_resource type="Script" path="res://components/zooming_camera.gd" id="2_1scrd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tvfph"]
 size = Vector2(320, 20)
@@ -26,6 +27,11 @@ double_jump_force = 200.0
 wall_jump_force = Vector2(20, -200)
 coyote_jump_delay = 0.1
 dash_speed = 240.0
+
+[node name="ZoomingCamera" type="Camera2D" parent="Player"]
+limit_bottom = 190
+script = ExtResource("2_1scrd")
+enable_zoom = false
 
 [node name="Ground" type="Node" parent="."]
 

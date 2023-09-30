@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://clxyccn3661l7"]
 
 [ext_resource type="Script" path="res://modules/characters/player/player.gd" id="1_ejux3"]
+[ext_resource type="Texture2D" uid="uid://5mdv2e2h3gvj" path="res://modules/characters/player/assets/player.png" id="2_3m7jl"]
 [ext_resource type="Script" path="res://components/state_machine.gd" id="2_m5m7h"]
-[ext_resource type="Texture2D" uid="uid://5mdv2e2h3gvj" path="res://modules/characters/assets/player.png" id="2_rkmli"]
 [ext_resource type="Script" path="res://modules/characters/player/run_state.gd" id="3_5n1uf"]
 [ext_resource type="Script" path="res://modules/characters/player/idle_state.gd" id="4_wsyli"]
 [ext_resource type="Script" path="res://modules/characters/player/jump_state.gd" id="5_g0fwc"]
@@ -22,7 +22,7 @@ dash_speed = 260.0
 vertical_dash_speed = 180.0
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_rkmli")
+texture = ExtResource("2_3m7jl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
