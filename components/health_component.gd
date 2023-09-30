@@ -6,7 +6,7 @@ signal died()
 @export var max_health: float = 10.0: set = set_max_health
 
 var current_health: float = 10.0: set = set_current_health
-var has_health_remaining = func() -> bool: return !is_equal_approx(current_health, 0.0)
+var has_health_remaining = func() -> bool: return !is_equal_approx(_current_health, 0.0)
 var current_health_percent = func() -> float: return current_health / max_health if max_health > 0 else 0.0
 var is_damaged = func() -> bool: return current_health < max_health
 var _has_died: bool
@@ -45,8 +45,9 @@ func set_current_health(value: float) -> void:
 		current_health_percent.call(),
 		_current_health > previous_health
 	)
+	current_health = _current_health
 	emit_signal("health_changed", health_update)
-	if has_health_remaining.call() and not _has_died:
+	if not has_health_remaining.call() and not _has_died:
 		_has_died = true
 		emit_signal("died")
 

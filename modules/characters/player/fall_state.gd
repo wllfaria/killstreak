@@ -30,6 +30,7 @@ func physics_update(delta: float) -> void:
 		player.max_fall_gravity_multiplier
 	)
 
+
 	if Input.is_action_just_pressed("dash") and player.can_dash:
 		state_machine.transition_to("Dash")
 	else:

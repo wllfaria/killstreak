@@ -15,7 +15,12 @@ func physics_update(delta: float) -> void:
 		return
 
 	var direction := Input.get_axis("move_left", "move_right")
+
 	if direction:
+		if direction < 0:
+			player.animation_player.play("RunLeft")
+		else:
+			player.animation_player.play("RunRight")
 		if (direction != _last_direction):
 			_acceleration_to_use = player.turn_acceleration
 			_last_direction = direction
@@ -26,6 +31,9 @@ func physics_update(delta: float) -> void:
 		player.velocity.x = move_toward(player.velocity.x, 0, player.friction)
 
 	player.velocity.y += player.gravity * delta
+
+	if Input.is_action_pressed("shoot"):
+		state_machine.transition_to("Firing", { last_state = "Run" })
 
 	if Input.is_action_just_pressed("jump"):
 		state_machine.transition_to("Jump")

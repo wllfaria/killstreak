@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfaxwucfsneky"
-path="res://.godot/imported/bat.png-c56048881a8922fadb540a189e5091b9.ctex"
+uid="uid://srnecmgt3vbv"
+path="res://.godot/imported/sonic-beam.png-56971a7477a39a76cce804246ab9d897.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://modules/characters/bat/assets/bat.png"
-dest_files=["res://.godot/imported/bat.png-c56048881a8922fadb540a189e5091b9.ctex"]
+source_file="res://modules/characters/assets/sonic-beam.png"
+dest_files=["res://.godot/imported/sonic-beam.png-56971a7477a39a76cce804246ab9d897.ctex"]
 
 [params]
 

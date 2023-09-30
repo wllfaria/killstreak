@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://g2a341r66xiu"]
+
+[ext_resource type="Shader" uid="uid://docqwp4sm7wwy" path="res://modules/characters/assets/hurt_shader.tres" id="1_dq66c"]
+
+[resource]
+shader = ExtResource("1_dq66c")
+shader_parameter/hurt_color = Color(1, 1, 1, 1)

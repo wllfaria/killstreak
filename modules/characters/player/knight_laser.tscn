@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfacdsvibte4m"]
+
+[ext_resource type="Script" path="res://modules/characters/player/knight_laser.gd" id="1_l5jpj"]
+[ext_resource type="Texture2D" uid="uid://cblocp031owlh" path="res://modules/characters/player/assets/laser.png" id="2_5jefu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_opnj6"]
+size = Vector2(12.9922, 3.98366)
+
+[node name="KnightLaser" type="Area2D" groups=["Projectiles"]]
+script = ExtResource("1_l5jpj")
+
+[node name="LaserSprite" type="Sprite2D" parent="."]
+position = Vector2(-6.50628, 0.00503302)
+texture = ExtResource("2_5jefu")
+offset = Vector2(6.50628, -0.00503302)
+
+[node name="LaserCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0.00390601, 0.00585335)
+shape = SubResource("RectangleShape2D_opnj6")
