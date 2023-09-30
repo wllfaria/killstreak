@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=3 uid="uid://clxyccn3661l7"]
+
+[ext_resource type="Script" path="res://modules/characters/player/player.gd" id="1_ejux3"]
+[ext_resource type="Script" path="res://components/state_machine.gd" id="2_m5m7h"]
+[ext_resource type="Texture2D" uid="uid://5mdv2e2h3gvj" path="res://modules/characters/assets/player.png" id="2_rkmli"]
+[ext_resource type="Script" path="res://modules/characters/player/run_state.gd" id="3_5n1uf"]
+[ext_resource type="Script" path="res://modules/characters/player/idle_state.gd" id="4_wsyli"]
+[ext_resource type="Script" path="res://modules/characters/player/jump_state.gd" id="5_g0fwc"]
+[ext_resource type="Script" path="res://modules/characters/player/fall_state.gd" id="6_sgxov"]
+[ext_resource type="Script" path="res://modules/characters/player/dash_state.gd" id="8_kd577"]
+[ext_resource type="Script" path="res://modules/characters/player/wall_slide_state.gd" id="9_375u4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o3tg0"]
+size = Vector2(8, 12)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_ejux3")
+jump_force = 300.0
+wall_jump_force = Vector2(200, -300)
+wall_slide_gravity = 10.0
+dash_speed = 260.0
+vertical_dash_speed = 180.0
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_rkmli")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_o3tg0")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_m5m7h")
+initial_state = NodePath("Idle")
+
+[node name="Run" type="Node" parent="StateMachine"]
+script = ExtResource("3_5n1uf")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_wsyli")
+
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource("5_g0fwc")
+
+[node name="Fall" type="Node" parent="StateMachine"]
+script = ExtResource("6_sgxov")
+
+[node name="Dash" type="Node" parent="StateMachine" node_paths=PackedStringArray("dash_timer")]
+script = ExtResource("8_kd577")
+dash_timer = NodePath("../../DashTimer")
+
+[node name="WallSlide" type="Node" parent="StateMachine"]
+script = ExtResource("9_375u4")
+
+[node name="OuterLeft" type="RayCast2D" parent="."]
+position = Vector2(-4, -4)
+target_position = Vector2(0, -9)
+
+[node name="InnerLeft" type="RayCast2D" parent="."]
+position = Vector2(-1, -4)
+target_position = Vector2(0, -9)
+
+[node name="InnerRight" type="RayCast2D" parent="."]
+position = Vector2(1, -4)
+target_position = Vector2(0, -9)
+
+[node name="OuterRight" type="RayCast2D" parent="."]
+position = Vector2(4, -4)
+target_position = Vector2(0, -9)
+
+[node name="DashTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="WallSlideCooldown" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[connection signal="timeout" from="DashTimer" to="StateMachine/Dash" method="_on_dash_timer_timeout"]

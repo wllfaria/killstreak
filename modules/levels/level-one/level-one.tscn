@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://6kp8uwn2mjh6"]
+
+[ext_resource type="PackedScene" uid="uid://clxyccn3661l7" path="res://modules/characters/player/player.tscn" id="1_7o3j5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tvfph"]
+size = Vector2(320, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_16moa"]
+size = Vector2(182.5, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hchum"]
+size = Vector2(182.5, 177)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tkyye"]
+size = Vector2(62, 10)
+
+[node name="root" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_7o3j5")]
+position = Vector2(62, 172)
+run_speed = 70.0
+turn_acceleration = 60.0
+fall_acceleration = 5.0
+jump_force = 270.0
+double_jump_force = 200.0
+wall_jump_force = Vector2(20, -200)
+coyote_jump_delay = 0.1
+dash_speed = 240.0
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+limit_left = 0
+limit_bottom = 190
+
+[node name="Ground" type="Node" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Ground"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground/StaticBody2D"]
+position = Vector2(160, 190)
+shape = SubResource("RectangleShape2D_tvfph")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Ground"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground/StaticBody2D2"]
+position = Vector2(223, 99)
+shape = SubResource("RectangleShape2D_16moa")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Ground"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground/StaticBody2D4"]
+position = Vector2(222, 96.5)
+shape = SubResource("RectangleShape2D_hchum")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Ground"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground/StaticBody2D3"]
+position = Vector2(31, 121)
+shape = SubResource("RectangleShape2D_tkyye")
