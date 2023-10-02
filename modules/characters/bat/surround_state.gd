@@ -10,6 +10,8 @@ func enter(_msg := {}) -> void:
 
 
 func physics_update(delta: float) -> void:
+	if not enemy.health_component.has_health_remaining.call():
+		return
 	_target = _get_circle_position(_random.randf())
 	var direction = (_target - enemy.global_position).normalized()
 

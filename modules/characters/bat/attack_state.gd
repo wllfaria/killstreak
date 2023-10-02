@@ -2,6 +2,8 @@ extends EnemyState
 
 
 func physics_update(_delta: float) -> void:
+	if not enemy.health_component.has_health_remaining.call():
+		return
 	if enemy.can_attack and not enemy.is_diving:
 		enemy.is_attacking = true
 		enemy.can_attack = false

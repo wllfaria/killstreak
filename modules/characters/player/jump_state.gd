@@ -10,6 +10,8 @@ func enter(msg := {}) -> void:
 
 
 func physics_update(delta: float) -> void:
+	if _is_disabled:
+		return
 	player.last_time_on_ground += delta
 
 	if not player.is_on_floor() and player.velocity.y > 0:
@@ -40,6 +42,10 @@ func physics_update(delta: float) -> void:
 
 	var direction = Input.get_axis("move_left", "move_right")
 	if direction:
+		if direction < 0:
+			player.animation_player.play("RunLeft")
+		else:
+			player.animation_player.play("RunRight")
 		player.velocity.x = move_toward(player.velocity.x, direction * player.run_speed, player.jump_acceleration)
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0, player.jump_friction)

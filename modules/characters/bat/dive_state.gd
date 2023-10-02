@@ -7,6 +7,8 @@ func enter(_msg := {}) -> void:
 
 
 func physics_update(delta: float) -> void:
+	if not enemy.health_component.has_health_remaining.call():
+		return
 	if enemy.can_dive and not enemy.is_attacking:
 		var direction = (enemy.player.global_position - enemy.global_position).normalized()
 		var target_position = enemy.player.global_position  + direction * enemy.dive_distance

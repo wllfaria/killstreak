@@ -10,11 +10,16 @@ func enter(_msg := {}):
 
 
 func physics_update(delta: float) -> void:
+	if _is_disabled:
+		return
 	if not player.is_on_floor():
 		state_machine.transition_to("Fall")
 		return
 
 	var direction := Input.get_axis("move_left", "move_right")
+
+	if Input.is_action_just_pressed("dash") and player.can_dash:
+		state_machine.transition_to("Dash")
 
 	if direction:
 		if direction < 0:

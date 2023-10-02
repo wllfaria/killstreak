@@ -42,12 +42,6 @@ func is_on_attack_range():
 	return false
 
 
-func _on_health_component_died() -> void:
-	animation_player.play("Die")
-	await animation_player.animation_finished
-	queue_free()
-
-
 func _face_player(delta: float):
 	var direction = player.global_position - global_position
 	var angle = sprite.transform.x.angle_to(direction)

@@ -20,6 +20,7 @@ func _physics_process(delta: float) -> void:
 	var target_position
 	if not is_instance_valid(target):
 		queue_free()
+		return
 	else:
 		_last_target_position = target.global_position
 		target_position = target.global_position

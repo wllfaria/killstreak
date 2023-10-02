@@ -5,6 +5,8 @@ func enter(_msg := {}) -> void:
 	player.animation_player.play("Idle")
 
 func update(_delta: float) -> void:
+	if _is_disabled:
+		return
 	if not player.is_on_floor():
 		state_machine.transition_to("Fall")
 

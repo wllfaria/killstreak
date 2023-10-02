@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://ddd020kvip8hl"]
+
+[ext_resource type="FontFile" uid="uid://c01hs3q4wbdo7" path="res://modules/levels/assets/fonts/Ohrenstead.ttf" id="1_x2juk"]
+
+[resource]
+font = ExtResource("1_x2juk")
+font_color = Color(0.870588, 0.619608, 0.254902, 1)
+shadow_color = Color(0, 0, 0, 0.309804)

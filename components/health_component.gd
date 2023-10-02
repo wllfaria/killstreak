@@ -1,5 +1,5 @@
 class_name HealthComponent
-extends Node
+extends Node2D
 
 signal health_changed(health_update: HealthUpdate)
 signal died()
@@ -14,6 +14,7 @@ var _current_health: float
 
 
 func _ready():
+	await owner.ready
 	initialize_health()
 
 

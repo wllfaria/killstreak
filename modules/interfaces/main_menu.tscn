@@ -1,0 +1,217 @@
+[gd_scene load_steps=21 format=3 uid="uid://5virjho2b16s"]
+
+[ext_resource type="Script" path="res://modules/interfaces/main_menu.gd" id="1_cltul"]
+[ext_resource type="Texture2D" uid="uid://6p20chmx3vdb" path="res://modules/levels/assets/background.png" id="1_f7xwy"]
+[ext_resource type="Texture2D" uid="uid://bjx3vtc1v5trw" path="res://modules/characters/player/assets/player_portrait1.png" id="2_dy0vu"]
+[ext_resource type="PackedScene" uid="uid://b3j17einjww20" path="res://modules/interfaces/settings.tscn" id="2_hequi"]
+[ext_resource type="Texture2D" uid="uid://cp4gqu5s22hid" path="res://modules/characters/player/assets/player_portrait2.png" id="3_p5qqj"]
+[ext_resource type="Texture2D" uid="uid://cr4w57eq0csx5" path="res://modules/characters/player/assets/player_portrait3.png" id="4_3hsel"]
+[ext_resource type="Texture2D" uid="uid://x5fpekqg0ukc" path="res://modules/characters/player/assets/player_portrait4.png" id="5_0iea1"]
+[ext_resource type="Texture2D" uid="uid://c57dnm4hcec3n" path="res://modules/characters/player/assets/player_portrait5.png" id="6_30l1v"]
+[ext_resource type="Texture2D" uid="uid://bdiixaha5rdmb" path="res://modules/interfaces/assets/main_menu_title.png" id="7_7i3ii"]
+[ext_resource type="Texture2D" uid="uid://cj35uh7w4ujw4" path="res://modules/interfaces/assets/main_menu_play.png" id="8_qrn7v"]
+[ext_resource type="Material" uid="uid://bva3jpqtctk0h" path="res://modules/levels/assets/shaders/shine_material.tres" id="9_6phiy"]
+[ext_resource type="Texture2D" uid="uid://bxnwt5w828842" path="res://modules/interfaces/assets/main_menu_settings.png" id="9_vvjaw"]
+[ext_resource type="Shader" path="res://modules/levels/assets/shaders/shine.gdshader" id="12_1g48g"]
+[ext_resource type="AudioStream" uid="uid://b6rmt1emdfj8c" path="res://modules/interfaces/assets/menu-song.mp3" id="13_mw7dc"]
+[ext_resource type="AudioStream" uid="uid://c8u7v55sbll6r" path="res://modules/interfaces/assets/hover.wav" id="14_tdkpj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q358v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_dy0vu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_p5qqj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3hsel")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_0iea1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_30l1v")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_85mb4"]
+resource_name = "Idle"
+length = 1.25
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_igmb4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_px8tk"]
+_data = {
+"Idle": SubResource("Animation_85mb4"),
+"RESET": SubResource("Animation_igmb4")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oyg0c"]
+shader = ExtResource("12_1g48g")
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/shine_progress = 0.0
+shader_parameter/shine_size = 0.1
+shader_parameter/shine_angle = 45.0
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("settings", "play", "settings_container", "title", "menus")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cltul")
+settings = NodePath("Menus/Settings")
+play = NodePath("Menus/Play")
+_settings = ExtResource("2_hequi")
+settings_container = NodePath("SettingsContainer")
+title = NodePath("Title")
+menus = NodePath("Menus")
+
+[node name="Backdrop" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_f7xwy")
+
+[node name="PlayerAnimation" type="AnimatedSprite2D" parent="."]
+position = Vector2(233, 111)
+scale = Vector2(1.33824, 1.33824)
+sprite_frames = SubResource("SpriteFrames_q358v")
+animation = &"Idle"
+flip_h = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../PlayerAnimation")
+autoplay = "Idle"
+libraries = {
+"": SubResource("AnimationLibrary_px8tk")
+}
+
+[node name="SettingsContainer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+offset_right = 165.0
+offset_bottom = 81.0
+
+[node name="TextureRect" type="TextureRect" parent="Title"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = -12.0
+offset_right = 150.0
+offset_bottom = 12.0
+grow_vertical = 2
+texture = ExtResource("7_7i3ii")
+
+[node name="Menus" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -75.0
+offset_right = 165.0
+grow_vertical = 0
+
+[node name="Play" type="TextureButton" parent="Menus"]
+material = ExtResource("9_6phiy")
+layout_mode = 0
+offset_left = 8.0
+offset_right = 37.0
+offset_bottom = 14.0
+pivot_offset = Vector2(0, 7)
+texture_normal = ExtResource("8_qrn7v")
+
+[node name="Settings" type="TextureButton" parent="Menus"]
+material = SubResource("ShaderMaterial_oyg0c")
+layout_mode = 0
+offset_left = 8.0
+offset_top = 26.0
+offset_right = 67.0
+offset_bottom = 40.0
+pivot_offset = Vector2(1, 5)
+texture_normal = ExtResource("9_vvjaw")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_mw7dc")
+autoplay = true
+
+[node name="HoverEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_tdkpj")
+
+[connection signal="mouse_entered" from="Menus/Play" to="." method="_on_play_mouse_entered"]
+[connection signal="mouse_exited" from="Menus/Play" to="." method="_on_play_mouse_exited"]
+[connection signal="pressed" from="Menus/Play" to="." method="_on_play_pressed"]
+[connection signal="mouse_entered" from="Menus/Settings" to="." method="_on_settings_mouse_entered"]
+[connection signal="mouse_exited" from="Menus/Settings" to="." method="_on_settings_mouse_exited"]
+[connection signal="pressed" from="Menus/Settings" to="." method="_on_settings_pressed"]
+[connection signal="finished" from="Music" to="." method="_on_music_finished"]

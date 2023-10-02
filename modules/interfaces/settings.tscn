@@ -1,0 +1,150 @@
+[gd_scene load_steps=12 format=3 uid="uid://b3j17einjww20"]
+
+[ext_resource type="Script" path="res://modules/interfaces/settings.gd" id="1_wcfd8"]
+[ext_resource type="Texture2D" uid="uid://cd2ew47vecl26" path="res://modules/levels/assets/dark-background.png" id="2_vi1m5"]
+[ext_resource type="Texture2D" uid="uid://dy162kb041e7l" path="res://modules/levels/components/assets/settings-title.png" id="3_nlua2"]
+[ext_resource type="Texture2D" uid="uid://cvjyo50606cxx" path="res://modules/interfaces/assets/music_settings_title.png" id="4_x73u8"]
+[ext_resource type="Theme" uid="uid://cku2e3l5n3i1x" path="res://modules/interfaces/assets/interface_theme.tres" id="5_ygoc7"]
+[ext_resource type="Texture2D" uid="uid://cs8qw45o0nja8" path="res://modules/interfaces/assets/sound_effects_settings_title.png" id="6_2m8np"]
+[ext_resource type="Material" uid="uid://bva3jpqtctk0h" path="res://modules/levels/assets/shaders/shine_material.tres" id="7_fpo1i"]
+[ext_resource type="Texture2D" uid="uid://cby3hesxdd3v6" path="res://modules/interfaces/assets/button1.png" id="8_2iit6"]
+[ext_resource type="Texture2D" uid="uid://dovjqn377smfl" path="res://modules/interfaces/assets/button2.png" id="9_fr6qn"]
+[ext_resource type="AudioStream" uid="uid://b6rmt1emdfj8c" path="res://modules/interfaces/assets/menu-song.mp3" id="10_hmaed"]
+[ext_resource type="AudioStream" uid="uid://bhty442yr76h7" path="res://modules/characters/assets/hit.wav" id="11_aibi3"]
+
+[node name="Settings" type="Control" node_paths=PackedStringArray("backdrop", "title", "audio_section", "button", "music", "sfx_slider", "music_slider")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wcfd8")
+backdrop = NodePath("Backdrop")
+title = NodePath("Title")
+audio_section = NodePath("Sound Settings")
+button = NodePath("Confirm Button")
+music = NodePath("MenuAudio")
+sfx_slider = NodePath("Sound Settings/Sound Effects/SoundEffectSlider")
+music_slider = NodePath("Sound Settings/Music/MusicSlider")
+
+[node name="Backdrop" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_vi1m5")
+
+[node name="Title" type="Control" parent="."]
+anchors_preset = 0
+offset_top = 180.0
+offset_right = 152.0
+offset_bottom = 232.0
+
+[node name="Title" type="TextureRect" parent="Title"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 134.0
+offset_bottom = 46.0
+texture = ExtResource("3_nlua2")
+
+[node name="Sound Settings" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_right = 122.0
+offset_bottom = 104.0
+grow_vertical = 0
+
+[node name="Music" type="Control" parent="Sound Settings"]
+anchors_preset = 0
+offset_left = 16.0
+offset_right = 122.0
+offset_bottom = 24.0
+
+[node name="MusicTitle" type="TextureRect" parent="Sound Settings/Music"]
+layout_mode = 0
+offset_right = 42.0
+offset_bottom = 12.0
+texture = ExtResource("4_x73u8")
+
+[node name="MusicSlider" type="HSlider" parent="Sound Settings/Music"]
+layout_mode = 0
+offset_top = 15.0
+offset_right = 106.0
+offset_bottom = 24.0
+theme = ExtResource("5_ygoc7")
+min_value = -30.0
+max_value = 0.0
+step = 5.0
+
+[node name="Sound Effects" type="Control" parent="Sound Settings"]
+anchors_preset = 0
+offset_left = 16.0
+offset_top = 40.0
+offset_right = 122.0
+offset_bottom = 64.0
+
+[node name="SoundEffectsTitle" type="TextureRect" parent="Sound Settings/Sound Effects"]
+layout_mode = 0
+offset_right = 42.0
+offset_bottom = 12.0
+texture = ExtResource("6_2m8np")
+
+[node name="SoundEffectSlider" type="HSlider" parent="Sound Settings/Sound Effects"]
+layout_mode = 0
+offset_top = 15.0
+offset_right = 106.0
+offset_bottom = 24.0
+theme = ExtResource("5_ygoc7")
+min_value = -30.0
+max_value = 0.0
+step = 5.0
+
+[node name="Confirm Button" type="Control" parent="."]
+material = ExtResource("7_fpo1i")
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -52.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 0
+pivot_offset = Vector2(27, 10)
+
+[node name="Apply" type="TextureButton" parent="Confirm Button"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -52.0
+offset_top = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+pivot_offset = Vector2(19, 6)
+texture_normal = ExtResource("8_2iit6")
+texture_pressed = ExtResource("9_fr6qn")
+
+[node name="MenuAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_hmaed")
+autoplay = true
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_aibi3")
+
+[connection signal="value_changed" from="Sound Settings/Music/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="Sound Settings/Sound Effects/SoundEffectSlider" to="." method="_on_sound_effect_slider_value_changed"]
+[connection signal="mouse_entered" from="Confirm Button/Apply" to="." method="_on_apply_mouse_entered"]
+[connection signal="mouse_exited" from="Confirm Button/Apply" to="." method="_on_apply_mouse_exited"]
+[connection signal="pressed" from="Confirm Button/Apply" to="." method="_on_apply_pressed"]

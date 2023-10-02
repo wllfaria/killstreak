@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://1gx1hoisvgmj"]
+
+[ext_resource type="Shader" path="res://modules/levels/assets/shaders/forcefield.gdshader" id="1_m73uf"]
+[ext_resource type="Texture2D" uid="uid://da80srsevdeci" path="res://modules/levels/assets/noise.png" id="2_q8xx8"]
+
+[resource]
+shader = ExtResource("1_m73uf")
+shader_parameter/radius = 0.36
+shader_parameter/thickness = 0.48
+shader_parameter/color = Color(0.65098, 0, 0.658824, 1)
+shader_parameter/brightness = 6.24
+shader_parameter/angular_speed = 0.7
+shader_parameter/radial_speed = -0.0300001
+shader_parameter/alpha = 0.36
+shader_parameter/noise = ExtResource("2_q8xx8")

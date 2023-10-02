@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bva3jpqtctk0h"]
+
+[ext_resource type="Shader" path="res://modules/levels/assets/shaders/shine.gdshader" id="1_ltp3t"]
+
+[resource]
+shader = ExtResource("1_ltp3t")
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/shine_progress = 0.0
+shader_parameter/shine_size = 0.1
+shader_parameter/shine_angle = 45.0

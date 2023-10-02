@@ -17,7 +17,7 @@ func _process(delta: float) -> void:
 	offset = _get_noise_offset(delta, noise_shake_speed, _shake_strength)
 
 
-func apply__shake() -> void:
+func apply_shake() -> void:
 	_shake_strength = noise_shake_strength
 
 
@@ -31,3 +31,12 @@ func _get_noise_offset(delta: float, speed: float, strength: float) -> Vector2:
 		noise.get_noise_2d(1, _noise_i) * strength,
 		noise.get_noise_2d(100, _noise_i) * strength
 	)
+
+
+func _on_player_shoot():
+	apply_smoothened_shake(0.1)
+
+
+func _on_player_took_damage(character: Character):
+	if character.is_in_group("Player"):
+		apply_shake()

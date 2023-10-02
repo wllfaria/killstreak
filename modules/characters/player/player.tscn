@@ -1,20 +1,47 @@
-[gd_scene load_steps=40 format=3 uid="uid://clxyccn3661l7"]
+[gd_scene load_steps=50 format=3 uid="uid://clxyccn3661l7"]
 
 [ext_resource type="Script" path="res://modules/characters/player/player.gd" id="1_ejux3"]
 [ext_resource type="Texture2D" uid="uid://5mdv2e2h3gvj" path="res://modules/characters/player/assets/player.png" id="2_3m7jl"]
 [ext_resource type="PackedScene" uid="uid://dfacdsvibte4m" path="res://modules/characters/player/knight_laser.tscn" id="2_85426"]
 [ext_resource type="Script" path="res://components/state_machine.gd" id="2_m5m7h"]
 [ext_resource type="Script" path="res://modules/characters/player/run_state.gd" id="3_5n1uf"]
+[ext_resource type="PackedScene" uid="uid://hlrxiksg5rjs" path="res://components/health_component.tscn" id="4_4smke"]
 [ext_resource type="Script" path="res://modules/characters/player/idle_state.gd" id="4_wsyli"]
-[ext_resource type="Script" path="res://components/health_component.gd" id="4_x8afh"]
 [ext_resource type="Script" path="res://modules/characters/player/jump_state.gd" id="5_g0fwc"]
+[ext_resource type="PackedScene" uid="uid://bt4qhth53xl76" path="res://components/hurtbox_component.tscn" id="5_qae60"]
 [ext_resource type="Script" path="res://modules/characters/player/fall_state.gd" id="6_sgxov"]
 [ext_resource type="Script" path="res://modules/characters/player/dash_state.gd" id="8_kd577"]
 [ext_resource type="Script" path="res://modules/characters/player/wall_slide_state.gd" id="9_375u4"]
 [ext_resource type="Script" path="res://modules/characters/player/firing_state.gd" id="11_kn65q"]
 [ext_resource type="Script" path="res://modules/characters/player/target_switcher.gd" id="11_mfn70"]
 [ext_resource type="Script" path="res://components/attack_range.gd" id="12_srfkf"]
-[ext_resource type="Script" path="res://components/hurtbox_component.gd" id="15_s2gdr"]
+[ext_resource type="AudioStream" uid="uid://bhp2ugpdrhlub" path="res://modules/characters/player/assets/shoot.wav" id="16_i73tc"]
+[ext_resource type="AudioStream" uid="uid://bhty442yr76h7" path="res://modules/characters/assets/hit.wav" id="17_r83o3"]
+[ext_resource type="AudioStream" uid="uid://cnosjd0mc2gd0" path="res://modules/characters/assets/die.wav" id="18_u7xt1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0caq2"]
+atlas = ExtResource("2_3m7jl")
+region = Rect2(170, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eiy3q"]
+atlas = ExtResource("2_3m7jl")
+region = Rect2(187, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_krw2y"]
+atlas = ExtResource("2_3m7jl")
+region = Rect2(204, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ek6ig"]
+atlas = ExtResource("2_3m7jl")
+region = Rect2(221, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4seyb"]
+atlas = ExtResource("2_3m7jl")
+region = Rect2(238, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ls7bo"]
+atlas = ExtResource("2_3m7jl")
+region = Rect2(255, 0, 17, 17)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6b0tc"]
 atlas = ExtResource("2_3m7jl")
@@ -80,6 +107,29 @@ region = Rect2(153, 0, 17, 17)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_0caq2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eiy3q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_krw2y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ek6ig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4seyb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ls7bo")
+}],
+"loop": true,
+"name": &"Die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_6b0tc")
 }, {
 "duration": 1.0,
@@ -141,6 +191,37 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o3tg0"]
 size = Vector2(6.98682, 12.5016)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rp1wg"]
+size = Vector2(6.98682, 12.5016)
+
+[sub_resource type="Animation" id="Animation_ffd75"]
+resource_name = "Die"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Die"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
 
 [sub_resource type="Animation" id="Animation_wjk5h"]
 resource_name = "Idle"
@@ -297,6 +378,7 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sjjyr"]
 _data = {
+"Die": SubResource("Animation_ffd75"),
 "Idle": SubResource("Animation_wjk5h"),
 "RESET": SubResource("Animation_4c6si"),
 "RunLeft": SubResource("Animation_8tj3p"),
@@ -306,20 +388,25 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_2ble0"]
 radius = 125.064
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qp31p"]
-size = Vector2(8, 14)
-
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health_component") groups=["Player"]]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_ejux3")
-jump_force = 300.0
-wall_jump_force = Vector2(200, -300)
+run_speed = 70.0
+turn_acceleration = 60.0
+fall_acceleration = 5.0
+jump_force = 270.0
+wall_jump_force = Vector2(20, -200)
 wall_slide_gravity = 10.0
-dash_speed = 260.0
+coyote_jump_delay = 0.1
+dash_speed = 240.0
 vertical_dash_speed = 180.0
+shoot_delay = 0.2
 shoot_projectile = ExtResource("2_85426")
 shoot_projectile_speed = 600.0
 primary_attack_damage = 3
 health_component = NodePath("HealthComponent")
+grace_period_time = 1.0
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 use_parent_material = true
@@ -331,8 +418,14 @@ flip_h = true
 position = Vector2(1.00083, 2.2508)
 shape = SubResource("RectangleShape2D_o3tg0")
 
-[node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("4_x8afh")
+[node name="HealthComponent" parent="." instance=ExtResource("4_4smke")]
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_qae60")]
+health_component = NodePath("../HealthComponent")
+
+[node name="HurtboxCollision" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(1.00083, 2.2508)
+shape = SubResource("RectangleShape2D_rp1wg")
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("2_m5m7h")
@@ -350,9 +443,10 @@ script = ExtResource("5_g0fwc")
 [node name="Fall" type="Node" parent="StateMachine"]
 script = ExtResource("6_sgxov")
 
-[node name="Dash" type="Node" parent="StateMachine" node_paths=PackedStringArray("dash_timer")]
+[node name="Dash" type="Node" parent="StateMachine" node_paths=PackedStringArray("dash_timer", "dash_cooldown")]
 script = ExtResource("8_kd577")
 dash_timer = NodePath("../../Timers/DashTimer")
+dash_cooldown = NodePath("../../Timers/DashCooldown")
 
 [node name="WallSlide" type="Node" parent="StateMachine"]
 script = ExtResource("9_375u4")
@@ -378,6 +472,9 @@ one_shot = true
 
 [node name="GracePeriod" type="Timer" parent="Timers"]
 wait_time = 1.5
+one_shot = true
+
+[node name="DashCooldown" type="Timer" parent="Timers"]
 one_shot = true
 
 [node name="TargetSwitcher" type="Node" parent="."]
@@ -414,16 +511,21 @@ script = ExtResource("12_srfkf")
 [node name="RangeCollision" type="CollisionShape2D" parent="AttackRange"]
 shape = SubResource("CircleShape2D_2ble0")
 
-[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
-script = ExtResource("15_s2gdr")
-health_component = NodePath("../HealthComponent")
+[node name="Sounds" type="Node" parent="."]
 
-[node name="HurtboxCollision" type="CollisionShape2D" parent="HurtboxComponent"]
-position = Vector2(1, 2)
-shape = SubResource("RectangleShape2D_qp31p")
+[node name="Shoot" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("16_i73tc")
 
-[connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
+[node name="Hit" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("17_r83o3")
+
+[node name="Die" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("18_u7xt1")
+
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
+[connection signal="shoot" from="StateMachine/Firing" to="." method="_on_firing_shoot"]
 [connection signal="timeout" from="Timers/DashTimer" to="StateMachine/Dash" method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="Timers/ShootCooldown" to="." method="_on_shoot_cooldown_timeout"]
 [connection signal="timeout" from="Timers/HurtDuration" to="." method="_on_hurt_duration_timeout"]
 [connection signal="timeout" from="Timers/GracePeriod" to="." method="_on_grace_period_timeout"]
+[connection signal="timeout" from="Timers/DashCooldown" to="StateMachine/Dash" method="_on_dash_cooldown_timeout"]

@@ -47,6 +47,11 @@ func physics_update(delta: float) -> void:
 
 
 	if direction:
+		if direction < 0:
+			player.animation_player.play("RunLeft")
+		else:
+			player.animation_player.play("RunRight")
+
 		if not player.is_on_floor() and player.is_on_wall():
 			state_machine.transition_to("WallSlide")
 

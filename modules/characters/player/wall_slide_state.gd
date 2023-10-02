@@ -8,6 +8,8 @@ func enter(_msg := {}) -> void:
 
 
 func physics_update(delta: float) -> void:
+	if _is_disabled:
+		return
 	_wall_slide_time += delta
 
 	var direction = Input.get_axis("move_left", "move_right")

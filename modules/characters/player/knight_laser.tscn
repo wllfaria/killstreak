@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cblocp031owlh" path="res://modules/characters/player/assets/laser.png" id="2_5jefu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_opnj6"]
-size = Vector2(12.9922, 3.98366)
+size = Vector2(7.97705, 3.98366)
 
 [node name="KnightLaser" type="Area2D" groups=["Projectiles"]]
 script = ExtResource("1_l5jpj")
@@ -15,5 +15,5 @@ texture = ExtResource("2_5jefu")
 offset = Vector2(6.50628, -0.00503302)
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2(0.00390601, 0.00585335)
+position = Vector2(0.0046376, 0.00585335)
 shape = SubResource("RectangleShape2D_opnj6")

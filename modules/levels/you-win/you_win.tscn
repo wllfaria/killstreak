@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=3 uid="uid://bxb4u41sv6mfj"]
+
+[ext_resource type="Texture2D" uid="uid://cd2ew47vecl26" path="res://modules/levels/assets/dark-background.png" id="1_1h3by"]
+[ext_resource type="Script" path="res://modules/levels/you-win/you_win.gd" id="1_5qxxp"]
+[ext_resource type="Texture2D" uid="uid://cv5wudm4qfj8r" path="res://modules/levels/you-win/assets/title.png" id="2_m3mq8"]
+[ext_resource type="PackedScene" uid="uid://5virjho2b16s" path="res://modules/interfaces/main_menu.tscn" id="2_nywx8"]
+[ext_resource type="Texture2D" uid="uid://cnn7gs3c77b8i" path="res://modules/levels/you-win/assets/thank-you.png" id="5_xktxp"]
+[ext_resource type="AudioStream" uid="uid://bokggdycw4vlc" path="res://modules/interfaces/assets/game-over-song.mp3" id="6_wa1rr"]
+
+[node name="YouWin" type="Control" node_paths=PackedStringArray("backdrop", "title", "thank_you", "music")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5qxxp")
+backdrop = NodePath("Backdrop")
+title = NodePath("Title")
+thank_you = NodePath("Control/ThankYou")
+music = NodePath("Music")
+main_menu = ExtResource("2_nywx8")
+
+[node name="Backdrop" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_1h3by")
+
+[node name="Title" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -88.5
+offset_top = 180.0
+offset_right = 88.5
+offset_bottom = 215.0
+grow_horizontal = 2
+texture = ExtResource("2_m3mq8")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -90.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ThankYou" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -83.0
+offset_right = 83.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("5_xktxp")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_wa1rr")
+autoplay = true
+
+[connection signal="finished" from="Music" to="." method="_on_music_finished"]

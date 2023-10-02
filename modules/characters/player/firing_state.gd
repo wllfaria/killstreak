@@ -1,5 +1,6 @@
 extends PlayerState
 
+signal shoot()
 var _last_state: String
 
 
@@ -10,6 +11,8 @@ func enter(msg := {}):
 		_last_state = "Idle"
 
 func physics_update(_delta: float) -> void:
+	if _is_disabled:
+		return
 	var direction = Input.get_axis("move_left", "move_right")
 	if direction:
 		if direction < 0:
@@ -23,6 +26,9 @@ func physics_update(_delta: float) -> void:
 	if not player.is_on_floor():
 		state_machine.transition_to("Fall")
 		return
+
+	if Input.is_action_just_pressed("jump"):
+		state_machine.transition_to("Jump")
 
 	if not Input.is_action_pressed("shoot"):
 		state_machine.transition_to(_last_state)
@@ -39,6 +45,9 @@ func physics_update(_delta: float) -> void:
 
 	player.can_shoot = false
 	player.shoot_cooldown.start()
+	emit_signal("shoot")
+	player.shoot_sfx.pitch_scale = randf_range(0.8, 1.5)
+	player.shoot_sfx.play()
 
 	var projectile: KnightLaser = player.shoot_projectile.instantiate()
 	projectile.speed = player.shoot_projectile_speed
