@@ -19,7 +19,7 @@ extends Node2D
 
 var _is_player_dead := false
 var _interface_animation_finished := false
-var _damage_indicator_label: PackedScene = preload("res://modules/levels/components/damage_label.tscn")
+var _damage_indicator_label: PackedScene = load("res://modules/levels/components/damage_label.tscn")
 var _is_paused := false
 
 @onready var music = $Music

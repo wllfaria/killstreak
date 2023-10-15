@@ -60,6 +60,7 @@ var is_in_grace_period: bool = false
 @onready var attack_range: AttackRange = $AttackRange
 @onready var grace_period_timer: Timer = $Timers/GracePeriod
 @onready var shoot_sfx: AudioStreamPlayer = $Sounds/Shoot
+@onready var jump_sfx: AudioStreamPlayer = $Sounds/Jump
 
 
 func _ready():

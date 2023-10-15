@@ -9,7 +9,7 @@ signal applied()
 @export var sfx_slider: HSlider
 @export var music_slider: HSlider
 
-var _shine_material: ShaderMaterial = preload("res://modules/levels/assets/shaders/shine_material.tres")
+var _shine_material: ShaderMaterial = load("res://modules/levels/assets/shaders/shine_material.tres")
 @onready var settings_singleton: GlobalSettings = get_node("/root/Settings")
 @onready var hit_sfx: AudioStreamPlayer = $HitSound
 

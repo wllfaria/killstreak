@@ -2,7 +2,7 @@ class_name Character
 extends CharacterBody2D
 
 signal took_damage(character: Character)
-var hurt_material: ShaderMaterial = preload("res://modules/assets/hurt_material.tres")
+var hurt_material: ShaderMaterial = load("res://modules/assets/hurt_material.tres")
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hurt_duration: Timer = $Timers/HurtDuration

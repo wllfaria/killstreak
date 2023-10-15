@@ -6,7 +6,7 @@ extends Control
 @export var settings_container: Control
 @export var title: Control
 @export var menus: Control
-var _level_one = preload("res://modules/levels/level-one/level-one.tscn")
+var _level_one = load("res://modules/levels/level-one/level-one.tscn")
 @onready var music: AudioStreamPlayer = $Music
 @onready var hover_effect: AudioStreamPlayer = $HoverEffect
 @onready var global_settings = get_node("/root/Settings")

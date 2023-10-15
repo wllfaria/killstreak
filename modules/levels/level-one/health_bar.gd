@@ -1,7 +1,7 @@
 extends TextureProgressBar
 
 @export var hurt_duration: Timer
-var hurt_material: ShaderMaterial = preload("res://modules/assets/hurt_material.tres")
+var hurt_material: ShaderMaterial = load("res://modules/assets/hurt_material.tres")
 
 
 func _on_player_took_damage(_player: Player):

@@ -360,10 +360,10 @@ shape = SubResource("RectangleShape2D_5f81x")
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -142.0
-offset_top = 39.0
-offset_right = -28.0
-offset_bottom = 124.0
+offset_left = -157.0
+offset_top = 26.0
+offset_right = -43.0
+offset_bottom = 111.0
 grow_horizontal = 2
 text = "E or Circle - Dash
 Square or Click - Fire
@@ -374,7 +374,7 @@ label_settings = SubResource("LabelSettings_bsgs8")
 
 [node name="Player" parent="." node_paths=PackedStringArray("projectiles_container") instance=ExtResource("1_7o3j5")]
 z_index = 2
-position = Vector2(15, 170)
+position = Vector2(11, 170)
 projectiles_container = NodePath("../Projectiles")
 
 [node name="ShakyCamera" type="Camera2D" parent="Player"]

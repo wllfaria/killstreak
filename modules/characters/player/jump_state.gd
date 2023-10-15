@@ -55,6 +55,7 @@ func physics_update(delta: float) -> void:
 
 
 func do_jump() -> void:
+	player.jump_sfx.play()
 	if player.is_on_wall() and Input.is_action_pressed("move_right") and not player.is_on_floor():
 		player.velocity.x = -player.wall_jump_force.x
 		player.velocity.y = player.wall_jump_force.y
@@ -67,6 +68,7 @@ func do_jump() -> void:
 
 
 func do_double_jump() -> void:
+	player.jump_sfx.play()
 	if player.is_on_wall() and Input.is_action_pressed("move_right") and not player.is_on_floor():
 		player.velocity.x = -player.wall_jump_force.x
 		player.velocity.y = player.wall_jump_force.y
